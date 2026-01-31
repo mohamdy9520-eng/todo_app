@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_app/features/home/home_screen.dart';
 
+
 class Splash  extends StatefulWidget {
   const Splash ({super.key});
 
@@ -28,7 +29,7 @@ class _SplashState extends State<Splash> {
             Text("Taskati",style: TextStyle(fontSize: 50.sp,
             fontWeight: FontWeight.bold),),
             Text("it's time to get Organized",style: TextStyle(
-            fontSize: 30),)
+            fontSize: 30.sp),)
           ],
 
         ),
