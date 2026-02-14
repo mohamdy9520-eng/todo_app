@@ -29,7 +29,7 @@ class CustomAppButtom extends StatelessWidget {
           color: Colors.white,
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,
-        ),
+        ),textAlign: TextAlign.center,
       ),
     );
   }

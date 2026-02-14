@@ -7,6 +7,7 @@ import 'package:todo_app/core/widgets/add_task_row.dart';
 import 'package:todo_app/core/widgets/task_item.dart';
 import 'package:todo_app/features/auth/models/user_model.dart';
 import 'package:todo_app/features/home/models/task_models.dart';
+import 'package:todo_app/features/home/widgets/tasks_listView.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -84,17 +85,8 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 30.h),
               AddTaskRow(),
               SizedBox(height: 20.h,),
-              Expanded(
-                child: ListView.separated(itemBuilder: (context, index){
-                  return Dismissible(
-                      background:Icon(Icons.delete),
-                      secondaryBackground: Icon(Icons.add_a_photo),
-                      key: UniqueKey(),
-                  child: TaskItem(
-                    taskModels: allTasks[index],
-                  ));
-                }, separatorBuilder: (context,index)=>SizedBox(height: 10.h,), itemCount: allTasks.length),
-              )
+              TasksListview()
+
             ],
           ),
         ),

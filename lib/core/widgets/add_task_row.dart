@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/core/widgets/custom_app_buttom.dart';
+import 'package:todo_app/features/add_task/add_task_screen.dart';
 
 class AddTaskRow extends StatelessWidget {
   const AddTaskRow({super.key});
@@ -20,9 +21,13 @@ class AddTaskRow extends StatelessWidget {
           ],
         )),
         SizedBox(
-          width:150.w ,
+          width:160.w ,
             child: CustomAppButtom(title: "+ Add Task",
-            onPressed: (){},))
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder:(co)=>AddTaskScreen()
+              )
+              );
+            },))
       ],
     );
   }
