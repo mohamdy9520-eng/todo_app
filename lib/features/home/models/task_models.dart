@@ -16,9 +16,8 @@ class TaskModels {
 
 }
 List<TaskModels>allTasks=[
-  TaskModels(title: "Task 1", startTime:"02:55 PM", endTime: "11:00 PM", description: "i will finish Tomorrow", statusText: "TODO", color:Colors.indigo),
-  TaskModels(title: "Task 2", startTime:"09:00 AM", endTime: "05:00 PM", description: "Must Finish Today", statusText: "TODO", color:Colors.green),
-  TaskModels(title: "Task 3", startTime:"08:00 PM", endTime: "6:00 AM", description: "i will finish Tomorrow", statusText: "TODO", color:Colors.orangeAccent)
+
+
 
 
 ];

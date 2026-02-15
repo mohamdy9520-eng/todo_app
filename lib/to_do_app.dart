@@ -12,6 +12,7 @@ class ToDoApp  extends StatelessWidget {
       minTextAdapt:true ,
       splitScreenMode: true,
       child: MaterialApp(
+        theme: ThemeData.dark(),
           debugShowCheckedModeBanner: false,
         home:Splash() ,
       ),

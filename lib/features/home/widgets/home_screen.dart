@@ -9,9 +9,16 @@ import 'package:todo_app/features/auth/models/user_model.dart';
 import 'package:todo_app/features/home/models/task_models.dart';
 import 'package:todo_app/features/home/widgets/tasks_listView.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../add_task/add_task_screen.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   String getGreeting() {
     final hour = DateTime.now().hour;
 
@@ -83,7 +90,16 @@ class HomeScreen extends StatelessWidget {
               ],
 
               SizedBox(height: 30.h),
-              AddTaskRow(),
+              AddTaskRow(
+                onPressed: ()async{
+                  await Navigator.push(context, MaterialPageRoute(builder:(co)=>AddTaskScreen(),
+                    ),
+                  );
+                   setState(() {
+
+                   });
+                },
+              ),
               SizedBox(height: 20.h,),
               TasksListview()
 
