@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/core/app_constant.dart';
 import 'package:todo_app/core/custom_text_form_field.dart';
 import 'package:todo_app/core/widgets/custom_app_buttom.dart';
 import 'package:todo_app/features/home/models/task_models.dart';
@@ -223,13 +225,23 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       title: "Create Task",
                       onPressed: () {
                         if (formKey.currentState?.validate() ?? false) {
+
+                          Hive.box<TaskModels>(AppConstant.taskbox).add(TaskModels(
+                            title: titleController.text,
+                            startTime: startTimeController.text,
+                            endTime: endTimeController.text,
+                            description: describtionController.text,
+                            statusText: "ToDo",
+                            color: taskColors[activeIndex].toARGB32(),
+                          ));
+                          
                           allTasks.add(TaskModels(
                             title: titleController.text,
                             startTime: startTimeController.text,
                             endTime: endTimeController.text,
                             description: describtionController.text,
                             statusText: "ToDo",
-                            color: taskColors[activeIndex],
+                            color: taskColors[activeIndex].toARGB32(),
                           ));
                           Navigator.pop(context);
                         }
