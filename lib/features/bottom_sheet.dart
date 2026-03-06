@@ -10,7 +10,7 @@ import 'package:todo_app/features/auth/models/user_model.dart';
 import 'package:todo_app/features/filter.dart';
 import 'package:todo_app/features/home/widgets/tasks_listView.dart';
 import 'package:todo_app/features/add_task/add_task_screen.dart';
-import 'package:todo_app/features/home/models/task_models.dart';
+import 'home/models/task_models.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -157,7 +157,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _showProfileOptions() {
     if (_user == null) return;
-
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -187,8 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if (_user!.image.isNotEmpty)
               ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
-                title: const Text("Remove Photo",
-                    style: TextStyle(color: Colors.red)),
+                title: const Text("Remove Photo", style: TextStyle(color: Colors.red)),
                 onTap: () {
                   Navigator.of(context).pop();
                   _removePhoto();
@@ -226,13 +224,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           _user!.name,
                           style: TextStyle(
-                              fontSize: 22.sp, fontWeight: FontWeight.bold),
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(height: 4.h),
                         Text(
                           "${getGreeting()} ${_user!.name}",
-                          style:
-                          TextStyle(fontSize: 16.sp, color: Colors.grey),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),
@@ -243,12 +245,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: CircleAvatar(
                       radius: 30.r,
                       backgroundColor: Colors.grey[200],
-                      backgroundImage: _user!.image.isNotEmpty &&
-                          File(_user!.image).existsSync()
+                      backgroundImage: _user!.image.isNotEmpty && File(_user!.image).existsSync()
                           ? FileImage(File(_user!.image))
                           : null,
-                      child: _user!.image.isEmpty ||
-                          !File(_user!.image).existsSync()
+                      child: _user!.image.isEmpty || !File(_user!.image).existsSync()
                           ? Icon(Icons.person, size: 30.r, color: Colors.grey)
                           : null,
                     ),
@@ -260,8 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () async {
                   await Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const AddTaskScreen()),
+                    MaterialPageRoute(builder: (context) => const AddTaskScreen()),
                   );
                   setState(() {});
                 },
@@ -270,47 +269,50 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   Expanded(
-                      child: FilterButton(
-                          title: "All",
-                          isActive: activeIndex == 0,
-                          onTap: () => setState(() => activeIndex = 0))),
+                    child: FilterButton(
+                      title: "All",
+                      isActive: activeIndex == 0,
+                      onTap: () => setState(() => activeIndex = 0),
+                    ),
+                  ),
                   SizedBox(width: 10.w),
                   Expanded(
-                      child: FilterButton(
-                          title: "ToDo",
-                          isActive: activeIndex == 1,
-                          onTap: () => setState(() => activeIndex = 1))),
+                    child: FilterButton(
+                      title: "ToDo",
+                      isActive: activeIndex == 1,
+                      onTap: () => setState(() => activeIndex = 1),
+                    ),
+                  ),
                   SizedBox(width: 10.w),
                   Expanded(
-                      child: FilterButton(
-                          title: "Completed",
-                          isActive: activeIndex == 2,
-                          onTap: () => setState(() => activeIndex = 2))),
+                    child: FilterButton(
+                      title: "Completed",
+                      isActive: activeIndex == 2,
+                      onTap: () => setState(() => activeIndex = 2),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 20.h),
+              Expanded(
+                child: ValueListenableBuilder(
+                  valueListenable: Hive.box<TaskModels>(AppConstant.taskBox).listenable(),
+                  builder: (context, Box<TaskModels> box, _) {
+                    final tasks = box.values.toList().cast<TaskModels>();
+                    List<TaskModels> filteredTasks;
 
-              // 👇 تعديل الفيلتر على Hive مباشرة
-          Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: Hive.box<TaskModels>(AppConstant.taskBox).listenable(),
-              builder: (context, Box<TaskModels> box, _) {
-                final tasks = box.values.toList().cast<TaskModels>();
+                    if (activeIndex == 0) {
+                      filteredTasks = tasks; // All
+                    } else if (activeIndex == 1) {
+                      filteredTasks = tasks.where((task) => !task.isCompleted).toList(); // ToDo
+                    } else {
+                      filteredTasks = tasks.where((task) => task.isCompleted).toList(); // Completed
+                    }
 
-                List<TaskModels> filteredTasks;
-
-                if (activeIndex == 0) {
-                  filteredTasks = tasks;
-                } else if (activeIndex == 1) {
-                  filteredTasks = tasks.where((task) => !task.isCompleted).toList();
-                } else {
-                  filteredTasks = tasks.where((task) => task.isCompleted).toList();
-                }
-
-                return TasksListview(tasks: filteredTasks);
-              },
-            ),
-          ),
+                    return TasksListview(tasks: filteredTasks);
+                  },
+                ),
+              ),
             ],
           ),
         ),

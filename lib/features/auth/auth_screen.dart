@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/core/custom_text_form_field.dart';
 import 'package:todo_app/core/widgets/custom_app_buttom.dart';
@@ -34,9 +34,8 @@ class _AuthScreenState extends State<AuthScreen> {
   void _loadUserData() {
     if (userBox.isNotEmpty) {
       final user = userBox.getAt(0);
-      nameController.text = user!.name;
-      imagePath = user.image;
-      setState(() {});
+      nameController.text = user?.name ?? '';
+      imagePath = user?.image ?? '';
     }
   }
 
@@ -85,52 +84,76 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          left: 16.w,
-          right: 16.w,
-          top: 100.h,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 100.r,
-              backgroundImage:
-              imagePath != null && imagePath!.isNotEmpty
-                  ? FileImage(File(imagePath!))
-                  : null,
-              child: imagePath == null || imagePath!.isEmpty
-                  ? Icon(Icons.person, size: 100.r)
-                  : null,
-            ),
-            SizedBox(height: 20.h),
-            CustomAppButtom(
-              title: "Upload from Camera",
-              onPressed: openCamera,
-            ),
-            SizedBox(height: 12.h),
-            CustomAppButtom(
-              title: "Upload from Gallery",
-              onPressed: openGallery,
-            ),
-            SizedBox(height: 12),
-            const Divider(color: Colors.indigo),
-            SizedBox(height: 12),
+      body: ValueListenableBuilder(
+        valueListenable: userBox.listenable(),
+        builder: (context, Box<UserModel> box, _) {
 
-            CustomTextFormField(
-              controller: nameController,
-              hintText: "Enter your Name", maxlines: 1,
-            ),
+          final user = box.isNotEmpty ? box.getAt(0) : null;
 
-            SizedBox(height: 20.h),
-            CustomAppButtom(
-              title: "Log In",
-              onPressed: saveUserData,
+          final image = user?.image ?? imagePath;
+          final name = user?.name ?? '';
+
+          if (nameController.text.isEmpty && name.isNotEmpty) {
+            nameController.text = name;
+          }
+
+          return SingleChildScrollView(
+            padding: EdgeInsets.only(
+              left: 16.w,
+              right: 16.w,
+              top: 100.h,
             ),
-          ],
-        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+
+                CircleAvatar(
+                  radius: 100.r,
+                  backgroundImage:
+                  image != null && image.isNotEmpty
+                      ? FileImage(File(image))
+                      : null,
+                  child: image == null || image.isEmpty
+                      ? Icon(Icons.person, size: 100.r)
+                      : null,
+                ),
+
+                SizedBox(height: 20.h),
+
+                CustomAppButtom(
+                  title: "Upload from Camera",
+                  onPressed: openCamera,
+                ),
+
+                SizedBox(height: 12.h),
+
+                CustomAppButtom(
+                  title: "Upload from Gallery",
+                  onPressed: openGallery,
+                ),
+
+                SizedBox(height: 12),
+
+                const Divider(color: Colors.indigo),
+
+                SizedBox(height: 12),
+
+                CustomTextFormField(
+                  controller: nameController,
+                  hintText: "Enter your Name",
+                  maxlines: 1,
+                ),
+
+                SizedBox(height: 20.h),
+
+                CustomAppButtom(
+                  title: "Log In",
+                  onPressed: saveUserData,
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

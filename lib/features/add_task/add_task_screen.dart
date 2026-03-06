@@ -221,32 +221,37 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    CustomAppButtom(
-                      title: "Create Task",
-                      onPressed: () {
-                        if (formKey.currentState?.validate() ?? false) {
+            CustomAppButtom(
+              title: "Create Task",
+              onPressed: () {
+                if (formKey.currentState?.validate() ?? false) {
 
-                          Hive.box<TaskModels>(AppConstant.taskbox).add(TaskModels(
-                            title: titleController.text,
-                            startTime: startTimeController.text,
-                            endTime: endTimeController.text,
-                            description: describtionController.text,
-                            statusText: "ToDo",
-                            color: taskColors[activeIndex].toARGB32(),
-                          ));
-                          
-                          allTasks.add(TaskModels(
-                            title: titleController.text,
-                            startTime: startTimeController.text,
-                            endTime: endTimeController.text,
-                            description: describtionController.text,
-                            statusText: "ToDo",
-                            color: taskColors[activeIndex].toARGB32(),
-                          ));
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
+                  // احصل على القيم من Controllers
+                  final taskTitle = titleController.text.trim();
+                  final taskDescription = describtionController.text.trim();
+                  final taskStartTime = startTimeController.text.trim();
+                  final taskEndTime = endTimeController.text.trim();
+                  final taskColor = taskColors[activeIndex].value;
+
+                  // انشئ TaskModels جديد
+                  final newTask = TaskModels(
+                    title: taskTitle,
+                    startTime: taskStartTime,
+                    endTime: taskEndTime,
+                    description: taskDescription,
+                    statusText: "ToDo",
+                    color: taskColor,
+                    isCompleted: false,
+                  );
+
+                  // أضفه على Hive Box
+                  Hive.box<TaskModels>(AppConstant.taskBox).add(newTask);
+
+                  // ارجع للشاشة السابقة
+                  Navigator.pop(context);
+                }
+              },
+            ),
                   ],
                 ),
               ),

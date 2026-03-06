@@ -1,6 +1,4 @@
 class AppConstant {
-  static const String userBox="User";
-  static const String taskbox="taskbox";
-
+  static const String userBox = 'userbox';
+  static const String taskBox = 'todo_tasks';
 }
-

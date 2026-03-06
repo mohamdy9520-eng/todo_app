@@ -5,19 +5,15 @@ import 'package:todo_app/features/home/models/task_models.dart';
 import 'package:todo_app/to_do_app.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  await Hive.initFlutter(); // مهم جدًا
+  Hive.registerAdapter(UserModelAdapter()); // لو عندك adapter
+  Hive.registerAdapter(TaskModelsAdapter()); // لو عندك adapter
 
-
-
-void main() async{
-
-  await Hive.initFlutter();
-  Hive.registerAdapter(UserModelAdapter());
-  Hive.registerAdapter(TaskModelsAdapter());
   await Hive.openBox<UserModel>(AppConstant.userBox);
-  await Hive.openBox<TaskModels>(AppConstant.taskbox);
+  await Hive.openBox<TaskModels>(AppConstant.taskBox);
 
-  runApp(ToDoApp());
+  runApp(const ToDoApp());
 }
-
-//flutter pub run build_runner build --delete-conflicting-outputs

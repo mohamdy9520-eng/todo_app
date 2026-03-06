@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 5)
-class UserModel {
+class UserModel extends HiveObject {
   @HiveField(0)
   String name;
 
@@ -14,4 +14,7 @@ class UserModel {
     required this.name,
     required this.image,
   });
+
+  @override
+  Future<void> save() async {}
 }

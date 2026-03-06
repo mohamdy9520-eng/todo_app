@@ -1,14 +1,11 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'user_model.dart';
 
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
+
 
 class UserModelAdapter extends TypeAdapter<UserModel> {
   @override
-  final int typeId = 9;
+  final int typeId = 5;
 
   @override
   UserModel read(BinaryReader reader) {
@@ -18,7 +15,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     };
     return UserModel(
       name: fields[0] as String,
-      image: fields[1] as String,
+      image: fields[7] as String,
     );
   }
 
@@ -28,7 +25,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(2)
       ..writeByte(0)
       ..write(obj.name)
-      ..writeByte(1)
+      ..writeByte(7)
       ..write(obj.image);
   }
 
