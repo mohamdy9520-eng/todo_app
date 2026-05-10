@@ -1,3 +1,121 @@
+# 📱 Task Manager App
+
+A modern **Task Management mobile application** built using **Flutter & Firebase**, designed to handle real-time data efficiently with a clean and scalable architecture.
+
+This project reflects practical experience in building production-like apps, focusing on authentication, cloud data handling, and responsive UI.
+
+---
+
+## 🚀 Features
+
+* 🔐 User Authentication (Firebase Auth – Login / Signup)
+* ☁️ Cloud Firestore (Real-time Database)
+* 📋 Create, Update, Delete Tasks
+* 📊 Task Status Tracking (In Progress, Done, Waiting Review, etc.)
+* 👤 User Profile (Name & Profile Image Update)
+* 📷 Image Upload (Firebase Storage)
+* 🔄 Real-time UI Updates using Streams
+* 📅 Calendar Integration
+* 💬 Chat Screen (UI Ready)
+
+---
+
+## 🧠 Tech Stack
+
+* **Flutter (Dart)**
+* **Firebase Authentication**
+* **Cloud Firestore**
+* **Firebase Storage**
+* **Image Picker**
+* **StreamBuilder (Reactive UI)**
+
+---
+
+## 📂 Project Structure
+
+```
+lib/
+├── core/
+│   └── services/
+│       └── firestore_service.dart
+│
+├── features/
+│   ├── home/
+│   ├── profile/
+│   ├── calendar/
+│   ├── chat/
+│   └── onboarding/
+│
+├── widgets/
+└── bottomNav/
+```
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+```
+git clone https://github.com/mohamdy9520-eng/task_manager.git
+cd task_manager
+```
+
+### 2. Install dependencies
+
+```
+flutter pub get
+```
+
+### 3. Firebase Setup
+
+* Add `google-services.json` inside:
+
+```
+android/app/
+```
+
+* Add `GoogleService-Info.plist` inside:
+
+```
+ios/Runner/
+```
+
+* Make sure Firebase is initialized in `main.dart`
+
+---
+
+### 4. Run the app
+
+```
+flutter run
+```
+
+---
+
+## ⚠️ Known Limitations
+
+* Firestore security rules need further hardening
+* Some UI parts rely heavily on StreamBuilder
+* No offline caching implemented yet
+* Business logic not fully separated from UI
+* Error handling can be improved
+
+---
+
+## 🔮 Future Improvements
+
+* Apply Clean Architecture (Repository + Use Cases)
+* Introduce Bloc/Cubit for state management
+* Optimize Firestore queries (reduce reads)
+* Add offline caching (Hive / SharedPreferences)
+* Improve security rules (user-based access)
+* Centralize error handling
+* Enhance performance
+
+---
+
+## 📸 Screenshots
 
 <img width="333" height="631" alt="لقطة الشاشة 2026-02-14 142703" src="https://github.com/user-attachments/assets/5e1f31b7-2a87-4217-9fc2-d010f7f3ad92" />
 <img width="397" height="767" alt="Update++" src="https://github.com/user-attachments/assets/9ab555bb-95c6-4e31-aca0-272bde02965d" />
@@ -11,3 +129,26 @@
 <img width="382" height="783" alt="لقطة الشاشة 2026-02-28 071017" src="https://github.com/user-attachments/assets/8781ec05-9223-4076-89e0-7df0622aa19f" />
 <img width="382" height="775" alt="لقطة الشاشة 2026-02-28 060616" src="https://github.com/user-attachments/assets/cf5b81df-3f02-4018-94dc-6f2a3a353953" />
 <img width="415" height="830" alt="لقطة الشاشة 2026-02-28 030425" src="https://github.com/user-attachments/assets/8ace5e3e-9914-47b3-9ca4-62d0cbd99b22" />
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork the repo and submit a pull request.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👨‍💻 Author
+
+**Mohamed Hamdy**
+
+---
+
+⭐ If you like this project, don't forget to star the repository!
+
